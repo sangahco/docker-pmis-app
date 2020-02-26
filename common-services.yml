@@ -39,6 +39,7 @@ services:
     - SAP_CM05000
     - SAP_FI65050
     - SAP_HR65040
+    - SAP_FI65120
 
   httpd:
     image: sangah/nginx-pmis
