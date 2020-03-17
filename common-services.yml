@@ -41,7 +41,9 @@ services:
     - SAP_HR65040
     - SAP_CM10040
     - SAP_FI65120
-
+    - SEARCH_IP
+    - SEARCH_PORT
+    
   httpd:
     image: sangah/nginx-pmis
     extends:
