@@ -12,7 +12,6 @@ services:
     - ${LOG_PATH}/pmis:/var/log/pmis
     - ${EDMS_PATH}:/edms
     environment:
-    - SYSTEM_TIMEZONE
     - JAVA_MAX_SIZE
     - JAVA_OPTS
     - MACHINE_HOST
