@@ -42,7 +42,7 @@ services:
     - SAP_FI65120
     - SEARCH_IP
     - SEARCH_PORT
-    
+    - APP_URL
   httpd:
     image: sangah/nginx-pmis
     extends:
