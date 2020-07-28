@@ -8,6 +8,8 @@ services:
       service: webapp
     environment:
     - "system.upload.handler=nginx"
+    networks:
+    - pmis-network
     restart: "unless-stopped"
 
   httpd:
@@ -22,18 +24,24 @@ services:
     - "${HTTP_PORT}:80"
     depends_on: 
     - was
+    networks:
+    - pmis-network
     restart: "unless-stopped"
 
   upload:
     extends: 
       file: common-services.yml
       service: upload
+    networks:
+    - pmis-network
     restart: "unless-stopped"
 
   php:
     extends: 
       file: common-services.yml
       service: php
+    networks:
+    - pmis-network
     restart: "unless-stopped"
 
 volumes:
@@ -41,3 +49,9 @@ volumes:
   thumb:
   ngx:
   app:
+
+networks:
+  pmis-network:
+    ipam:
+      config:
+        - subnet: 172.22.0.0/16

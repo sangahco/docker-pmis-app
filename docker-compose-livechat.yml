@@ -9,6 +9,8 @@ services:
     - CLIENT_AUTH_ENDPOINT=http://httpd/
     - CLIENT_PROFILE_ENDPOINT=http://httpd/System/User/findUser.action
     - SERVER_WEBROOT=/livechat
+    networks:
+    - pmis-network
     logging: 
       driver: "json-file"
       options:

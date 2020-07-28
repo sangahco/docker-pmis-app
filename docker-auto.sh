@@ -132,7 +132,7 @@ case $i in
         exit 1
         ;;
     *)
-        CONF_ARG="$CONF_ARG -f docker-compose-rabbitmq.yml -f docker-compose-livechat.yml"
+        CONF_ARG="$CONF_ARG -f docker-compose-rabbitmq.yml"
         ;;
 esac
 done
