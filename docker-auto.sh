@@ -56,7 +56,8 @@ echo "  --rabbitmq      Add RabbitMQ Server"
 echo "  --noimage       Use a war file located in 'was' folder, use the ant task 'docker-build' to create the war file"
 echo "  --help          Show this help message"
 echo "  --ssl           Enable SSL connection, set HTTPS_PORT and certificate correctly"
-echo "  --hoops         Load PMIS with Hoops BIM Viewer path: /hoops"
+echo "  --hoops         Load Hoops BIM Viewer, path: /hoops"
+echo "  --livechat      Load Live chat module, path: /livechat"
 echo
 echo "Commands:"
 echo "  up              Start the services"
@@ -132,12 +133,16 @@ case $i in
         CONF_ARG="$CONF_ARG -f docker-compose-hoops.yml"
         shift
         ;;
+    --livechat)
+        CONF_ARG="$CONF_ARG -f docker-compose-livechat.yml"s
+        shift
+        ;;
     --help|-h)
         usage
         exit 1
         ;;
     *)
-        CONF_ARG="$CONF_ARG -f docker-compose-rabbitmq.yml -f docker-compose-livechat.yml"
+        CONF_ARG="$CONF_ARG -f docker-compose-rabbitmq.yml"
         ;;
 esac
 done
