@@ -26,15 +26,18 @@ services:
     - NLS_ND_URL1
     - NLS_ND_URL2
     - SSO_DOMAIN
+    - NLS_PMIS_URL
+    - NLS_PV_DOMAIN
     - SAP_HR65020
     - SAP_HR65030
     - SAP_CO65010
     - SAP_FI65070
-    - SAP_FI65080
     - SAP_FI65100
     - SAP_FI65110
     - SAP_FI65130
+    - SAP_FI65140
     - SAP_CO65060
+    - SAP_FI65080
     - SAP_CM05000
     - SAP_FI65050
     - SAP_HR65040
@@ -42,7 +45,9 @@ services:
     - SAP_FI65120
     - SEARCH_IP
     - SEARCH_PORT
-    - APP_URL
+    - SAP_USER_NAME
+    - SAP_USER_PWD
+    
   httpd:
     image: sangah/nginx-pmis
     extends:
