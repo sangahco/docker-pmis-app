@@ -4,8 +4,6 @@ services:
 
   hoops-viewer:
     image: ${REGISTRY_URL}/hoops-viewer
-    networks:
-    - pmis-network
     logging: 
       driver: "json-file"
       options:
