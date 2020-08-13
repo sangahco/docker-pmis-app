@@ -56,6 +56,7 @@ echo "  --rabbitmq      Add RabbitMQ Server"
 echo "  --noimage       Use a war file located in 'was' folder, use the ant task 'docker-build' to create the war file"
 echo "  --help          Show this help message"
 echo "  --ssl           Enable SSL connection, set HTTPS_PORT and certificate correctly"
+echo "  --hoops         Load PMIS with Hoops BIM Viewer path: /hoops"
 echo
 echo "Commands:"
 echo "  up              Start the services"
@@ -125,6 +126,10 @@ case $i in
         ;;
     --ssl)
         CONF_ARG="$CONF_ARG -f docker-compose-ssl.yml"
+        shift
+        ;;
+    --hoops)
+        CONF_ARG="$CONF_ARG -f docker-compose-hoops.yml"
         shift
         ;;
     --help|-h)
