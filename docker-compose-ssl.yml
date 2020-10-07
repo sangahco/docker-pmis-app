@@ -7,3 +7,7 @@ services:
     - "${HTTPS_PORT}:443"
     environment: 
     - SSL_ENABLED=1
+    volumes:
+    - $SSL_CERT:/usr/share/nginx/ssl/nginx.crt
+    - $SSL_KEY:/usr/share/nginx/ssl/nginx.key
+    
