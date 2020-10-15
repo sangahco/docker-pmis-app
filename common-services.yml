@@ -43,6 +43,7 @@ services:
     - SAP_HR65040
     - SAP_CM10040
     - SAP_FI65120
+    - SAP_CM05050
     - SEARCH_IP
     - SEARCH_PORT
     - SAP_USER_NAME
