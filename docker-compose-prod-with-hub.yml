@@ -8,6 +8,8 @@ services:
       service: webapp
     environment: 
     - "system.upload.handler=nginx"
+    networks:
+    - pmis-network
     restart: "unless-stopped"
 
   httpd:
@@ -17,7 +19,7 @@ services:
     depends_on: 
     - was
     networks: 
-      default:
+      pmis-network:
       hub_net:
         aliases: 
         - ${HUB_INSTANCE}
@@ -29,6 +31,10 @@ volumes:
   tmp:
     external: true
 
-networks: 
+networks:
+  pmis-network:
+    ipam:
+      config:
+        - subnet: 172.22.0.0/16
   hub_net:
     external: true
