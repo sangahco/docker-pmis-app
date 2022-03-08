@@ -1,0 +1,12 @@
+version: "2"
+
+services:
+
+  hoops-viewer:
+    image: ${REGISTRY_URL}/hoops-viewer
+    logging: 
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    restart: "unless-stopped"

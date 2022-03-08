@@ -6,3 +6,7 @@ services:
     volumes: 
     - ./was:/usr/local/src
     - ./was/webapp:/usr/local/webapp
+
+  httpd:
+    volumes:
+    - ./was/webapp:/var/www
