@@ -9,3 +9,9 @@ services:
     - CLIENT_AUTH_ENDPOINT=http://httpd/
     - CLIENT_PROFILE_ENDPOINT=http://httpd/System/User/findUser.action
     - SERVER_WEBROOT=/livechat
+    logging: 
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    restart: "unless-stopped"

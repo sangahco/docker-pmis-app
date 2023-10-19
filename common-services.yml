@@ -5,14 +5,13 @@ services:
     extends:
       service: logging
     volumes: 
-    - tmp:/tmp
     - thumb:/thumb
     - app:/usr/local/webapp
+    - ${TEMP_PATH}:/tmp
     - ${LOG_PATH}/tomcat:/usr/local/tomcat/logs
     - ${LOG_PATH}/pmis:/var/log/pmis
     - ${EDMS_PATH}:/edms
     environment:
-    - SYSTEM_TIMEZONE
     - JAVA_MAX_SIZE
     - JAVA_OPTS
     - MACHINE_HOST
@@ -27,15 +26,14 @@ services:
       service: logging
     volumes:
     - app:/var/www
-    environment:
-    - SSL_ENABLED
+    - ${LOG_PATH}/nginx:/var/log/nginx
 
   upload:
     image: sangah/pmis-fileupload
     extends:
       service: logging
     volumes:
-    - tmp:/tmp
+    - ${TEMP_PATH}:/tmp
     - ngx:/etc/nginx/www
 
   php:

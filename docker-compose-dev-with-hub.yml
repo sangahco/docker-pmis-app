@@ -16,8 +16,6 @@ services:
     extends: 
       file: common-services.yml
       service: httpd
-    environment:
-    - SSL_ENABLED=0
     depends_on: 
     - was
     networks: 

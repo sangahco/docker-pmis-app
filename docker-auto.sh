@@ -14,7 +14,7 @@ getenv(){
     echo "${_env:-$(cat .env | awk 'BEGIN { FS="="; } /^'$1'/ {sub(/\r/,"",$2); print $2;}')}"
 }
 
-DOCKER_COMPOSE_VERSION="1.14.0"
+DOCKER_COMPOSE_VERSION="1.29.2"
 CONF_ARG="-f docker-compose-prod-full.yml"
 PATH=$PATH:/usr/local/bin/
 PROJECT_NAME="$(getenv PROJECT_NAME)"
@@ -55,6 +55,9 @@ echo "  --certgen       Run the certbot instance for generating SSL certificate"
 echo "  --rabbitmq      Add RabbitMQ Server"
 echo "  --noimage       Use a war file located in 'was' folder, use the ant task 'docker-build' to create the war file"
 echo "  --help          Show this help message"
+echo "  --ssl           Enable SSL connection, set HTTPS_PORT and certificate correctly"
+echo "  --hoops         Load Hoops BIM Viewer, path: /hoops"
+echo "  --livechat      Load Live chat module, path: /livechat"
 echo
 echo "Commands:"
 echo "  up              Start the services"
@@ -62,10 +65,12 @@ echo "  down            Stop the services"
 echo "  ps              Show the status of the services"
 echo "  logs            Follow the logs on console"
 echo "  login           Log in to a Docker registry"
+echo "  force-remove    Service is stopped and removed with force!"
 echo "  remove-all      Remove all containers"
 echo "  stop-all        Stop all containers running"
 echo "  build           Build the image"
 echo "  publish         Publish the image to the registry"
+echo "  arthas          Start arthas diagnostic tool"
 }
 
 if [ $# -eq 0 ]; then
@@ -120,12 +125,24 @@ case $i in
         CONF_ARG="$CONF_ARG -f docker-compose-prod-noimage.yml"
         shift
         ;;
+    --ssl)
+        CONF_ARG="$CONF_ARG -f docker-compose-ssl.yml"
+        shift
+        ;;
+    --hoops)
+        CONF_ARG="$CONF_ARG -f docker-compose-hoops.yml"
+        shift
+        ;;
+    --livechat)
+        CONF_ARG="$CONF_ARG -f docker-compose-livechat.yml"s
+        shift
+        ;;
     --help|-h)
         usage
         exit 1
         ;;
     *)
-        CONF_ARG="$CONF_ARG -f docker-compose-rabbitmq.yml -f docker-compose-livechat.yml"
+        CONF_ARG="$CONF_ARG -f docker-compose-rabbitmq.yml"
         ;;
 esac
 done
@@ -141,6 +158,11 @@ elif [ "$1" == "up" ]; then
     docker-compose $CONF_ARG pull
     docker-compose $CONF_ARG build --pull
     docker-compose $CONF_ARG up -d --remove-orphans
+    exit 0
+
+elif [ "$1" == "force-remove" ]; then
+    shift
+    docker-compose $CONF_ARG rm --stop --force "$@"
     exit 0
 
 elif [ "$1" == "stop-all" ]; then
@@ -172,6 +194,12 @@ elif [ "$1" == "publish" ]; then
     docker login $REGISTRY_URL
     docker push $REGISTRY_URL/$PROJECT_NAME
     exit 0
+
+elif [ "$1" == "arthas" ]; then
+    shift
+    docker-compose $CONF_ARG exec was /bin/bash -c "wget https://alibaba.github.io/arthas/arthas-boot.jar && java -jar arthas-boot.jar $@"
+    exit 0
+
 fi
 
 docker-compose $CONF_ARG "$@"
