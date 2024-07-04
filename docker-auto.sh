@@ -24,18 +24,18 @@ REGISTRY_URL="$(getenv REGISTRY_URL)"
 # Install docker-compose
 # DOCKER_COMPOSE_VERSION need to be set
 ########################################
-install_docker_compose() {
-    sudo curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" \
-    -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
-    return 0
-}
+# install_docker_compose() {
+#     sudo curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" \
+#     -o /usr/local/bin/docker-compose
+#     sudo chmod +x /usr/local/bin/docker-compose
+#     return 0
+# }
 
-if ! command -v docker-compose >/dev/null 2>&1; then
-    install_docker_compose
-elif [[ "$(docker-compose version --short)" != "$DOCKER_COMPOSE_VERSION" ]]; then
-    install_docker_compose
-fi
+# if ! command -v docker-compose >/dev/null 2>&1; then
+#     install_docker_compose
+# elif [[ "$(docker-compose version --short)" != "$DOCKER_COMPOSE_VERSION" ]]; then
+#     install_docker_compose
+# fi
 
 usage() {
 echo "Usage:  $(basename "$0") [MODE] [OPTIONS] [COMMAND]"
@@ -155,14 +155,14 @@ if [ "$1" == "login" ]; then
     exit 0
 
 elif [ "$1" == "up" ]; then
-    docker-compose $CONF_ARG pull
-    docker-compose $CONF_ARG build --pull
-    docker-compose $CONF_ARG up -d --remove-orphans
+    docker compose $CONF_ARG pull
+    docker compose $CONF_ARG build --pull
+    docker compose $CONF_ARG up -d --remove-orphans
     exit 0
 
 elif [ "$1" == "force-remove" ]; then
     shift
-    docker-compose $CONF_ARG rm --stop --force "$@"
+    docker compose $CONF_ARG rm --stop --force "$@"
     exit 0
 
 elif [ "$1" == "stop-all" ]; then
@@ -177,7 +177,7 @@ elif [ "$1" == "remove-all" ]; then
 
 elif [ "$1" == "logs" ]; then
     shift
-    docker-compose $CONF_ARG logs -f --tail 200 "$@"
+    docker compose $CONF_ARG logs -f --tail 200 "$@"
     exit 0
 
 elif [ "$1" == "build" ]; then
@@ -197,9 +197,9 @@ elif [ "$1" == "publish" ]; then
 
 elif [ "$1" == "arthas" ]; then
     shift
-    docker-compose $CONF_ARG exec was /bin/bash -c "wget https://alibaba.github.io/arthas/arthas-boot.jar && java -jar arthas-boot.jar $@"
+    docker compose $CONF_ARG exec was /bin/bash -c "wget https://alibaba.github.io/arthas/arthas-boot.jar && java -jar arthas-boot.jar $@"
     exit 0
 
 fi
 
-docker-compose $CONF_ARG "$@"
+docker compose $CONF_ARG "$@"
