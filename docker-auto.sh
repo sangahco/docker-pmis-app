@@ -129,12 +129,16 @@ case $i in
         CONF_ARG="$CONF_ARG -f docker-compose-ssl.yml"
         shift
         ;;
-    --hoops)
-        CONF_ARG="$CONF_ARG -f docker-compose-hoops.yml"
-        shift
-        ;;
-    --livechat)
-        CONF_ARG="$CONF_ARG -f docker-compose-livechat.yml"s
+    # --hoops)
+    #     CONF_ARG="$CONF_ARG -f docker-compose-hoops.yml"
+    #     shift
+    #     ;;
+    # --livechat)
+    #     CONF_ARG="$CONF_ARG -f docker-compose-livechat.yml"
+    #     shift
+    #     ;;
+    --bim)
+        CONF_ARG="$CONF_ARG -f docker-compose-bim-app.yml"
         shift
         ;;
     --help|-h)
