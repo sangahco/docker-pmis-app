@@ -1,0 +1,14 @@
+version: "2"
+
+services:
+
+  httpd:
+    external_links:
+    - bim-app
+    networks:
+      default:
+      bim-app_default:
+
+networks:
+  bim-app_default:
+    external: true
