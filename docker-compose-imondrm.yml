@@ -1,0 +1,17 @@
+version: "2"
+
+services:
+
+  was:
+    networks:
+    - default
+    - imon_net
+    volumes:
+    - "/media/fts/encrypted:/app/mod/cryptor/encrypted"
+    - "/media/fts/decrypted:/app/mod/cryptor/decrypted"
+    environment:
+    - "file.drm.domain=http://imondrm:8443"
+
+networks: 
+  imon_net:
+    external: true
