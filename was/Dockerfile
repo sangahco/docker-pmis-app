@@ -1,1 +1,1 @@
-FROM sangah/pmis-base:8.5-jdk8
+FROM sangah/pmis-base:8.5-jdk8-jammy

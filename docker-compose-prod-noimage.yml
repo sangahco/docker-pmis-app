@@ -2,7 +2,7 @@ version: "2"
 
 services:
   was:
-    image: sangah/pmis-base:8.5-jdk8
+    image: sangah/pmis-base:8.5-jdk8-jammy
     volumes: 
     - ./was/stnd_pmis.war:/usr/local/webapp/stnd_pmis.war
 
